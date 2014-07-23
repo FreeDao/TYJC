@@ -122,10 +122,8 @@ public class ReadDataService extends Service
 				{
 					sleep(( mbyReadBuffer.size() != 0) ? 1 : 100);
 					byData = readData();
-					
 					if(byData == null)
 						continue;
-
 //					onDataReceived(byData, byData.length);
 					showError(byData);
 //					Log.d("serial"," ServiceThread readData read data = " +getString(byData));

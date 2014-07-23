@@ -31,8 +31,10 @@
                 android:src="@drawable/seekbar_gaoya_data" />
 
             <SeekBar android:id="@+id/seek_gaoya"
-                android:layout_width="746px"
+                android:layout_width="639px"
                 android:layout_height="wrap_content"
+                android:maxHeight="11dip"
+  				android:minHeight="11dip"
                 android:progressDrawable="@drawable/seekbar_bg"
                 android:thumb="@drawable/seekbar_thum"
                 android:thumbOffset="10dip"
