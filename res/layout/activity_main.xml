@@ -31,6 +31,12 @@
                     android:textSize="100dip"
                     android:layout_marginLeft="50dip"
                     android:layout_marginTop="100dip"/>
+                <TextView android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bar"
+                    android:textSize="50dip"
+                    android:layout_toRightOf="@+id/tv_left_top_qiya"
+                    android:layout_alignBaseline="@+id/tv_left_top_qiya"/>
 
                 <TextView
                     android:id="@+id/tv_left_top_wendu"
@@ -39,6 +45,12 @@
                     android:textSize="60dip"
                     android:layout_marginLeft="300dip"
                     android:layout_marginTop="70dip" />
+                <TextView android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="℃"
+                    android:textSize="30dip"
+                    android:layout_toRightOf="@+id/tv_left_top_wendu"
+                    android:layout_alignTop="@+id/tv_left_top_wendu"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -64,7 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="60dip"
-                    android:layout_marginLeft="350dip"
+                    android:layout_marginLeft="300dip"
                     android:layout_marginTop="70dip" />
             </RelativeLayout>
         </LinearLayout>
@@ -125,13 +137,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="60dip"
-                    android:layout_marginLeft="350dip"
+                    android:layout_marginLeft="300dip"
                     android:layout_marginTop="70dip" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
+<!--     <TextView
         android:id="@+id/tv_warn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -139,6 +151,6 @@
         android:background="@drawable/warn_bg"
         android:gravity="center"
         android:textColor="@android:color/black"
-        android:textSize="40dip" />
+        android:textSize="40dip" /> -->
 
 </RelativeLayout>

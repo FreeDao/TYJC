@@ -18,12 +18,14 @@ import android.widget.TextView;
 public class ShowError extends Activity {
 
 	private ImageView top_left,top_right,down_left,down_right;
-	private TextView tv_warn,tv_left_top_qiya,tv_left_top_wendu,tv_right_top_qiya,tv_right_top_wendu,
+	private TextView tv_left_top_qiya,tv_left_top_wendu,tv_right_top_qiya,tv_right_top_wendu,
 						tv_left_down_qiya,tv_left_down_wendu,tv_right_down_qiya,tv_right_down_wendu;
 	boolean isShow = false;
 	DecimalFormat df = new DecimalFormat("#0.00");
 	private SharedPreferences sp;
 	private Editor editor;
+	private String bar = "Bar";
+	private String C = "¡æ";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -83,7 +85,7 @@ public class ShowError extends Activity {
 		top_right = (ImageView) findViewById(R.id.iv_right_top);
 		down_left = (ImageView) findViewById(R.id.iv_left_down);
 		down_right = (ImageView) findViewById(R.id.iv_right_down);
-		tv_warn = (TextView) findViewById(R.id.tv_warn);
+//		tv_warn = (TextView) findViewById(R.id.tv_warn);
 		tv_left_top_qiya = (TextView) findViewById(R.id.tv_left_top_qiya);
 		tv_left_top_wendu = (TextView) findViewById(R.id.tv_left_top_wendu);
 		
@@ -166,7 +168,7 @@ public class ShowError extends Activity {
 		 tv_right_down_qiya.setText(df.format(down_right_qiya));
 		 tv_right_down_qiya.setText(df.format(down_right_qiya));
 		 tv_right_down_wendu.setText(String.valueOf(down_right_wendu));
-		 tv_warn.setText(errorString);
+//		 tv_warn.setText(errorString);
 		 
 	}
 //	

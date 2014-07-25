@@ -17,6 +17,11 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android_serialport_api.SerialPort;
@@ -24,11 +29,13 @@ import android_serialport_api.SerialPort;
 public class ReadDataService extends Service
 {
 	//private static final String TAG="InitDeviceService";
-	
+	// 添加的弹出框
+	private WindowManager wm;
+	private WindowManager.LayoutParams wmParams;
+	private View dialogLayout;
+	private LayoutInflater inflater;
 	
 	Context mContext;
-	
-	
 	
 	protected Application mApplication;
 	protected SerialPort mSerialPort;
@@ -73,6 +80,12 @@ public class ReadDataService extends Service
 	{
 		super.onCreate();
 		mContext = this;
+		inflater = LayoutInflater.from(this);
+		dialogLayout = inflater.inflate(R.layout.errormsg, null);
+		dialogLayout.setClickable(true);
+		tv_warn = (TextView) dialogLayout.findViewById(R.id.tv_warn);
+		wm = (WindowManager) getApplicationContext().getSystemService("window");
+		initMenuWM();
 		sp = getSharedPreferences("tyjc", Context.MODE_PRIVATE);
 		editor = sp.edit();
 		editor.putBoolean("show", true);
@@ -101,6 +114,7 @@ public class ReadDataService extends Service
 	public void onStart(Intent intent,int startId) 
 	{
 		super.onStart(intent,startId);
+		showDialog();
 	}
 	
 	public void onDestroy(){
@@ -109,6 +123,48 @@ public class ReadDataService extends Service
 		mApplication.closeSerialPort();
 		mSerialPort = null;
 		super.onDestroy();
+	}
+	
+	private void initMenuWM(){
+		wmParams = new WindowManager.LayoutParams();
+		wmParams.type = 2002; // 这里是关键，你也可以试试2003
+		// wmParams.type =
+		// WindowManager.LayoutParams.TYPE_SYSTEM_ALERT|WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
+		wmParams.format = 1;
+		/**
+		 * 这里的flags也很关键 代码实际是wmParams.flags |= FLAG_NOT_FOCUSABLE;
+		 * 40的由来是wmParams的默认属性（32）+ FLAG_NOT_FOCUSABLE（8）
+		 */
+		wmParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+				| WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+		wmParams.width = 502;
+		wmParams.height = 85;
+		wmParams.x = 0;
+		wmParams.y = 0;
+		wmParams.gravity = Gravity.TOP|Gravity.CENTER;
+	}
+	
+	private void showDialog() {
+		try {
+			wm.removeView(dialogLayout);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		dialogLayout.setClickable(true);
+		dialogLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent();
+				intent.setClass(mContext, ShowError.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				startActivity(intent);
+			}
+		});
+		
+		wm.addView(dialogLayout, wmParams); // 创建View
 	}
 	
 	
