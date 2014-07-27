@@ -25,10 +25,30 @@
             android:gravity="center"
             android:orientation="vertical" >
 
-            <ImageView
-                android:layout_width="wrap_content"
+            <RelativeLayout android:layout_width="600px"
                 android:layout_height="wrap_content"
-                android:src="@drawable/seekbar_gaoya_data" />
+                android:layout_marginBottom="5dip">
+                <TextView android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="2.5"
+                    android:layout_alignParentLeft="true"/>
+                <TextView android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="3.5"
+                    android:layout_alignParentRight="true"/>
+                <TextView android:id="@+id/gaoyaValue"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="3.5"
+                    android:textSize="35sp"
+                    android:gravity="center"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/bg_red"/>
+                <TextView android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="默认：3.0Bar (300KPa)"
+                    android:layout_toRightOf="@+id/gaoyaValue"/>
+            </RelativeLayout>
 
             <SeekBar android:id="@+id/seek_gaoya"
                 android:layout_width="639px"
@@ -37,7 +57,8 @@
   				android:minHeight="11dip"
                 android:progressDrawable="@drawable/seekbar_bg"
                 android:thumb="@drawable/seekbar_thum"
-                android:thumbOffset="10dip"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
                 android:max="10"  />
         </LinearLayout>
     </LinearLayout>
@@ -63,18 +84,42 @@
             android:gravity="center"
             android:orientation="vertical" >
 
-            <ImageView
-                android:layout_width="wrap_content"
+            <RelativeLayout android:layout_width="600px"
                 android:layout_height="wrap_content"
-                android:src="@drawable/seekbar_gaoya_data" />
+                android:layout_marginBottom="5dip">
+                <TextView android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="1.5"
+                    android:layout_alignParentLeft="true"/>
+                <TextView android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="2.4"
+                    android:layout_alignParentRight="true"/>
+                <TextView android:id="@+id/diyaValue"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="3.5"
+                    android:textSize="35sp"
+                    android:gravity="center"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/bg_red"/>
+                <TextView android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="默认：1.8Bar (180KPa)"
+                    android:layout_toRightOf="@+id/diyaValue"/>
+            </RelativeLayout>
+            
 
             <SeekBar android:id="@+id/seek_diya"
-                android:layout_width="600px"
+                android:layout_width="639px"
                 android:layout_height="wrap_content"
+                android:maxHeight="12dip"
+  				android:minHeight="11dip"
                 android:progressDrawable="@drawable/seekbar_bg"
                 android:thumb="@drawable/seekbar_thum"
-                android:thumbOffset="0.5dip"
-                android:max="10" />
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
+                android:max="10"  />
         </LinearLayout>
     </LinearLayout>
 
@@ -97,17 +142,41 @@
             android:gravity="center"
             android:orientation="vertical" >
 
-            <ImageView
-                android:layout_width="wrap_content"
+            <RelativeLayout android:layout_width="600px"
                 android:layout_height="wrap_content"
-                android:src="@drawable/seekbar_gaoya_data" />
+                android:layout_marginBottom="5dip">
+                <TextView android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="50"
+                    android:layout_alignParentLeft="true"/>
+                <TextView android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="100"
+                    android:layout_alignParentRight="true"/>
+                <TextView android:id="@+id/gaowenValue"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="75"
+                    android:textSize="35sp"
+                    android:gravity="center"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/bg_red"/>
+                <TextView android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="默认：75"
+                    android:layout_toRightOf="@+id/gaowenValue"/>
+            </RelativeLayout>
+            
 
             <SeekBar android:id="@+id/seek_wendu"
-                android:layout_width="600px"
+                android:layout_width="639px"
                 android:layout_height="wrap_content"
+                android:maxHeight="12dip"
+  				android:minHeight="11dip"
                 android:progressDrawable="@drawable/seekbar_bg"
                 android:thumb="@drawable/seekbar_thum"
-                android:thumbOffset="0.5dip"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
                 android:max="10"  />
         </LinearLayout>
     </LinearLayout>

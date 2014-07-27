@@ -15,6 +15,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
@@ -44,7 +45,8 @@ public class ReadDataService extends Service
 	private ReadThread mReadThread;
 	private ImageView top_left,top_right,down_left,down_right;
 	private TextView tv_warn;
-	private float gaoyaOKValue,diyaOKValue,wenduOKValue;
+	private float gaoyaOKValue,diyaOKValue;
+	private int wenduOKValue;
 	private SharedPreferences sp;
 	private Editor editor;
 //	private byte[] buf;
@@ -70,6 +72,26 @@ public class ReadDataService extends Service
 	public static final String DOWN_RIGHT_QIYA = "down_right_qiya";
 	public static final String DOWN_RIGHT_WENDU = "down_right_wendu";
 	
+	public static final float GAOYA = 3.0f;
+	public static final float DIYA = 1.8f;
+	public static final int WENDU = 75;
+	private boolean isShow = false;
+	private String errorString = "";
+	public Handler mHandle = new Handler(){
+		@Override
+		public void handleMessage(Message msg){
+			switch(msg.what){
+			case 1:
+				tv_warn.setText(errorString);
+				showDialog();
+				break;
+			case 2:
+				dissDialog();
+				break;
+			}
+		}
+	};
+	
 	@Override
 	public IBinder onBind(Intent arg0) {
 		// TODO Auto-generated method stub
@@ -80,6 +102,20 @@ public class ReadDataService extends Service
 	{
 		super.onCreate();
 		mContext = this;
+		mHandle = new Handler(){
+			@Override
+			public void handleMessage(Message msg){
+				switch(msg.what){
+				case 1:
+					tv_warn.setText(errorString);
+					showDialog();
+					break;
+				case 2:
+					dissDialog();
+					break;
+				}
+			}
+		};
 		inflater = LayoutInflater.from(this);
 		dialogLayout = inflater.inflate(R.layout.errormsg, null);
 		dialogLayout.setClickable(true);
@@ -114,7 +150,7 @@ public class ReadDataService extends Service
 	public void onStart(Intent intent,int startId) 
 	{
 		super.onStart(intent,startId);
-		showDialog();
+//		showDialog();
 	}
 	
 	public void onDestroy(){
@@ -145,26 +181,38 @@ public class ReadDataService extends Service
 	}
 	
 	private void showDialog() {
+		if(isShow){
+			wm.updateViewLayout(dialogLayout, wmParams);
+		}else{
+//			initMenuWM();
+			dialogLayout = inflater.inflate(R.layout.errormsg, null);
+			tv_warn = (TextView) dialogLayout.findViewById(R.id.tv_warn);
+			tv_warn.setText(errorString);
+			dialogLayout.setClickable(true);
+			dialogLayout.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					Intent intent = new Intent();
+					intent.setClass(mContext, ShowError.class);
+					intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					startActivity(intent);
+				}
+			});
+			wm.addView(dialogLayout, wmParams); // 创建View
+		}
+		isShow = true;
+	}
+	
+	private void dissDialog(){
 		try {
 			wm.removeView(dialogLayout);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		dialogLayout.setClickable(true);
-		dialogLayout.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent();
-				intent.setClass(mContext, ShowError.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				startActivity(intent);
-			}
-		});
-		
-		wm.addView(dialogLayout, wmParams); // 创建View
+		isShow = false;
 	}
 	
 	
@@ -271,7 +319,7 @@ public class ReadDataService extends Service
 						byData = new byte[lenPackage];
 						for(int i = 0; i < lenPackage; ++i)
 							byData[i] = mbyReadBuffer.remove(0);
-//						Log.d("serial"," ServiceThread readData read data = " +getString(byData));
+						Log.d("serial"," ServiceThread readData read data = " +getString(byData));
 						return byData;
 					}
 //					else //checkSum error
@@ -291,16 +339,16 @@ public class ReadDataService extends Service
 		if(data==null)
 			return;
 		//获取标准值
-		gaoyaOKValue  = sp.getFloat("gaoya", 3.0f);
-		diyaOKValue = sp.getFloat("diya", 1.8f);
-		wenduOKValue = sp.getFloat("wendu", 75);
+		gaoyaOKValue  = sp.getFloat("gaoya", GAOYA);
+		diyaOKValue = sp.getFloat("diya", DIYA);
+		wenduOKValue = sp.getInt("wendu", WENDU);
 				
 		String result = "";
 		
 		String fangxiang ="";//确定是哪一个轮胎的信息
 		
 		float qiyaValue;
-		float wenduValue;
+		int wenduValue;
 		
 		int fangxiangNumber = -1;	
 		qiyaValue =  (float)getIntFromByte(data[4])*3.44f/102f; //压力值
@@ -310,28 +358,28 @@ public class ReadDataService extends Service
 			fangxiang = "左前轮：";
 			fangxiangNumber = 0;
 			editor.putFloat(TOP_LEFT_QIYA, qiyaValue);
-			editor.putFloat(TOP_LEFT_WENDU, wenduValue);
+			editor.putInt(TOP_LEFT_WENDU, wenduValue);
 			n++;
 			break;
 		case 0x01://右前
 			fangxiang = "右前轮：";
 			fangxiangNumber = 1;
 			editor.putFloat(TOP_RIGHT_QIYA, qiyaValue);
-			editor.putFloat(TOP_RIGHT_WENDU, wenduValue);
+			editor.putInt(TOP_RIGHT_WENDU, wenduValue);
 			n++;
 			break;
 		case 0x10://左后
 			fangxiang = "左后轮";
 			fangxiangNumber = 2; 
 			editor.putFloat(DOWN_LEFT_QIYA, qiyaValue);
-			editor.putFloat(DOWN_LEFT_WENDU, wenduValue);
+			editor.putInt(DOWN_LEFT_WENDU, wenduValue);
 			n++;
 			break;
 		case 0x11://右后
 			fangxiang = "右后轮";
 			fangxiangNumber = 3;
 			editor.putFloat(DOWN_RIGHT_QIYA, qiyaValue);
-			editor.putFloat(DOWN_RIGHT_WENDU, wenduValue);
+			editor.putInt(DOWN_RIGHT_WENDU, wenduValue);
 			n++;
 			break;
 		}
@@ -376,34 +424,65 @@ public class ReadDataService extends Service
 //			intent1.putExtra("isOk", isOk);
 //			intent1.setAction("com.kun.tyjc.action.info");
 //			sendBroadcast(intent1);
-		
+		errorString = getErrorString();
+		if(errorString.length()!=0){
+//			Looper.prepare();
+			Message msg = new Message();
+			msg.what = 1;
+			mHandle.handleMessage(msg);
+//			Looper.loop();
+		}else{
+//			Looper.prepare();
+			Message msg = new Message();
+			msg.what = 2;
+			mHandle.handleMessage(msg);
+//			Looper.loop();
+//			dissDialog();
+		}
 	}
 	
-//	//改变四个轮子的背景颜色图
-//	private void setErrorImage(int fangxiangNumber, String result){
-//		if(fangxiangNumber==0){
-//			top_left.setImageResource(R.drawable.left_top_error);
-//		}else{
-//			top_left.setImageResource(R.drawable.left_top_ok);
-//		}
-//		if(fangxiangNumber==1){
-//			top_right.setImageResource(R.drawable.right_top_error);
-//		}else{
-//			top_right.setImageResource(R.drawable.right_top_ok);
-//		}
-//		if(fangxiangNumber==2){
-//			down_left.setImageResource(R.drawable.left_down_error);
-//		}else{
-//			down_left.setImageResource(R.drawable.left_down_ok);
-//		}
-//		if(fangxiangNumber==3){
-//			down_right.setImageResource(R.drawable.right_down_error);
-//		}else{
-//			down_right.setImageResource(R.drawable.right_down_ok);
-//		}
-//		tv_warn.setText(result);
-//	}
-
-
+	private String getErrorString(){
+		 float top_left_qiya = sp.getFloat(ReadDataService.TOP_LEFT_QIYA, 0);
+		 int top_left_wendu = sp.getInt(ReadDataService.TOP_LEFT_WENDU, 0);
+		 float top_right_qiya = sp.getFloat(ReadDataService.TOP_RIGHT_QIYA, 0);
+		 int top_right_wendu = sp.getInt(ReadDataService.TOP_RIGHT_WENDU, 0);
+		 float down_left_qiya = sp.getFloat(ReadDataService.DOWN_LEFT_QIYA, 0);
+		 int down_left_wendu = sp.getInt(ReadDataService.DOWN_LEFT_WENDU, 0);
+		 float down_right_qiya = sp.getFloat(ReadDataService.DOWN_RIGHT_QIYA, 0);
+		 int down_right_wendu = sp.getInt(ReadDataService.DOWN_RIGHT_WENDU, 0);
+		 //获取标准值
+		 float gaoyaOKValue  = sp.getFloat("gaoya", GAOYA);
+		 float diyaOKValue = sp.getFloat("diya", DIYA);
+		 int wenduOKValue = sp.getInt("wendu", WENDU);
+		 
+		 String errorString = "";
+		 if(top_left_qiya>gaoyaOKValue){
+			 errorString = "左前轮胎压高";
+		 }else if(top_left_qiya<diyaOKValue){
+			 errorString = "左前轮胎压低";
+		 }else if(top_left_wendu>wenduOKValue){
+			 errorString = "左前轮温度高";
+		 }else if(top_right_qiya>gaoyaOKValue){
+			 errorString = "右前轮胎压高";
+		 }else if(top_right_qiya<diyaOKValue){
+			 errorString = "右前轮胎压低";
+		 }else if(top_right_wendu>wenduOKValue){
+			 errorString = "右前轮温度高";
+		 }else if(down_left_qiya>gaoyaOKValue){
+			 errorString = "左后轮胎压高";
+		 }else if(down_left_qiya<diyaOKValue){
+			 errorString = "左后轮胎压低";
+		 }else if(down_left_wendu>wenduOKValue){
+			 errorString = "左后轮温度高";
+		 }else if(down_right_qiya>gaoyaOKValue){
+			 errorString = "右后轮胎压高";
+		 }else if(down_right_qiya<diyaOKValue){
+			 errorString = "右后轮胎压低";
+		 }else if(down_right_wendu>wenduOKValue){
+			 errorString = "右后轮温度高";
+		 }
+//		 tv_warn.setText(errorString);
+		 return errorString;
+	}
 	
 }

@@ -101,17 +101,17 @@ public class ShowError extends Activity {
 	
 	private void error(){
 		 float top_left_qiya = sp.getFloat(ReadDataService.TOP_LEFT_QIYA, 0);
-		 float top_left_wendu = sp.getFloat(ReadDataService.TOP_LEFT_WENDU, 0);
+		 int top_left_wendu = sp.getInt(ReadDataService.TOP_LEFT_WENDU, 0);
 		 float top_right_qiya = sp.getFloat(ReadDataService.TOP_RIGHT_QIYA, 0);
-		 float top_right_wendu = sp.getFloat(ReadDataService.TOP_RIGHT_WENDU, 0);
+		 int top_right_wendu = sp.getInt(ReadDataService.TOP_RIGHT_WENDU, 0);
 		 float down_left_qiya = sp.getFloat(ReadDataService.DOWN_LEFT_QIYA, 0);
-		 float down_left_wendu = sp.getFloat(ReadDataService.DOWN_LEFT_WENDU, 0);
+		 int down_left_wendu = sp.getInt(ReadDataService.DOWN_LEFT_WENDU, 0);
 		 float down_right_qiya = sp.getFloat(ReadDataService.DOWN_RIGHT_QIYA, 0);
-		 float down_right_wendu = sp.getFloat(ReadDataService.DOWN_RIGHT_WENDU, 0);
+		 int down_right_wendu = sp.getInt(ReadDataService.DOWN_RIGHT_WENDU, 0);
 		 //获取标准值
-		 float gaoyaOKValue  = sp.getFloat("gaoya", 3.0f);
-		 float diyaOKValue = sp.getFloat("diya", 1.8f);
-		 float wenduOKValue = sp.getFloat("wendu", 75.0f);
+		 float gaoyaOKValue  = sp.getFloat("gaoya", ReadDataService.GAOYA);
+		 float diyaOKValue = sp.getFloat("diya", ReadDataService.DIYA);
+		 int wenduOKValue = sp.getInt("wendu", ReadDataService.WENDU);
 		 
 		 top_left.setImageResource(R.drawable.left_top_ok);
 		 top_right.setImageResource(R.drawable.right_top_ok);
@@ -157,15 +157,11 @@ public class ShowError extends Activity {
 			 down_right.setImageResource(R.drawable.right_down_error);
 		 }
 		 tv_left_top_qiya.setText(df.format(top_left_qiya));
-		 tv_left_top_qiya.setText(df.format(top_left_qiya));
 		 tv_left_top_wendu.setText(String.valueOf(top_left_wendu));
-		 tv_right_top_qiya.setText(df.format(top_right_qiya));
 		 tv_right_top_qiya.setText(df.format(top_right_qiya));
 		 tv_right_top_wendu.setText(String.valueOf(top_right_wendu));
 		 tv_left_down_qiya.setText(df.format(down_left_qiya));
-		 tv_left_down_qiya.setText(df.format(down_left_qiya));
 		 tv_left_down_wendu.setText(String.valueOf(down_left_wendu));
-		 tv_right_down_qiya.setText(df.format(down_right_qiya));
 		 tv_right_down_qiya.setText(df.format(down_right_qiya));
 		 tv_right_down_wendu.setText(String.valueOf(down_right_wendu));
 //		 tv_warn.setText(errorString);

@@ -24,12 +24,14 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
 
 public class TYJC extends Activity implements OnSeekBarChangeListener{
 
 	private SeekBar seek_gaoya,seek_diya,seek_wendu;
 	private SharedPreferences sp;
 	private Editor editor;
+	private TextView tv_gaoya, tv_diya, tv_gaowen;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,9 +43,17 @@ public class TYJC extends Activity implements OnSeekBarChangeListener{
 	
 	public void onResume(){
 		super.onResume();
-		seek_gaoya.setProgress(sp.getInt("gaoyaProgress", 0));
-		seek_diya.setProgress(sp.getInt("diyaProgress", 0));
-		seek_wendu.setProgress(sp.getInt("wenduProgress", 0));
+		seek_gaoya.setProgress(sp.getInt("gaoyaProgress", 5));
+		seek_diya.setProgress(sp.getInt("diyaProgress", 3));
+		seek_wendu.setProgress(sp.getInt("wenduProgress", 5));
+		
+		//获取设置值
+		float gaoyaOKValue  = sp.getFloat("gaoya", ReadDataService.GAOYA);
+		float diyaOKValue = sp.getFloat("diya", ReadDataService.DIYA);
+		int wenduOKValue = sp.getInt("wendu", ReadDataService.WENDU);
+		tv_gaoya.setText(String.valueOf(gaoyaOKValue));
+		tv_diya.setText(String.valueOf(diyaOKValue));
+		tv_gaowen.setText(String.valueOf(wenduOKValue));
 	}
 	
 	private void initView(){
@@ -53,6 +63,9 @@ public class TYJC extends Activity implements OnSeekBarChangeListener{
 		seek_gaoya.setOnSeekBarChangeListener(this);
 		seek_diya.setOnSeekBarChangeListener(this);
 		seek_wendu.setOnSeekBarChangeListener(this);
+		tv_diya = (TextView) findViewById(R.id.diyaValue);
+		tv_gaoya = (TextView) findViewById(R.id.gaoyaValue);
+		tv_gaowen = (TextView) findViewById(R.id.gaowenValue);
 	}
 
 
@@ -68,12 +81,15 @@ public class TYJC extends Activity implements OnSeekBarChangeListener{
 		if(seekBar == seek_gaoya){
 			editor.putFloat("gaoya", 2.5f+progress*0.1f);
 			editor.putInt("gaoyaProgress", progress);
+			tv_gaoya.setText(String.valueOf(2.5f+progress*0.1f));
 		}else if(seekBar == seek_diya){
 			editor.putFloat("diya", 1.5f+progress*0.1f);
 			editor.putInt("diyaProgress", progress);
+			tv_diya.setText(String.valueOf(1.5f+progress*0.1f));
 		}else if(seekBar == seek_wendu){
-			editor.putFloat("wendu", 50+progress*5);
+			editor.putInt("wendu", 50+progress*5);
 			editor.putInt("wenduProgress", progress);
+			tv_gaowen.setText(String.valueOf(50+progress*5));
 		}
 		editor.commit();
 	}

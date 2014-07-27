@@ -27,32 +27,36 @@ public final class R {
     }
     public static final class drawable {
         public static final int bg=0x7f020000;
-        public static final int ic_launcher=0x7f020001;
-        public static final int icon=0x7f020002;
-        public static final int icon2=0x7f020003;
-        public static final int left_down_error=0x7f020004;
-        public static final int left_down_ok=0x7f020005;
-        public static final int left_top_error=0x7f020006;
-        public static final int left_top_ok=0x7f020007;
-        public static final int red_bg=0x7f020008;
-        public static final int right_down_error=0x7f020009;
-        public static final int right_down_ok=0x7f02000a;
-        public static final int right_top_error=0x7f02000b;
-        public static final int right_top_ok=0x7f02000c;
-        public static final int seekbar_bg=0x7f02000d;
-        public static final int seekbar_gaoya_data=0x7f02000e;
-        public static final int seekbar_thum=0x7f02000f;
-        public static final int warn_bg=0x7f020010;
+        public static final int bg_red=0x7f020001;
+        public static final int ic_launcher=0x7f020002;
+        public static final int icon=0x7f020003;
+        public static final int icon2=0x7f020004;
+        public static final int left_down_error=0x7f020005;
+        public static final int left_down_ok=0x7f020006;
+        public static final int left_top_error=0x7f020007;
+        public static final int left_top_ok=0x7f020008;
+        public static final int red_bg=0x7f020009;
+        public static final int right_down_error=0x7f02000a;
+        public static final int right_down_ok=0x7f02000b;
+        public static final int right_top_error=0x7f02000c;
+        public static final int right_top_ok=0x7f02000d;
+        public static final int seekbar_bg=0x7f02000e;
+        public static final int seekbar_gaoya_data=0x7f02000f;
+        public static final int seekbar_thum=0x7f020010;
+        public static final int warn_bg=0x7f020011;
     }
     public static final class id {
-        public static final int action_settings=0x7f090010;
+        public static final int action_settings=0x7f090013;
+        public static final int diyaValue=0x7f09000f;
+        public static final int gaowenValue=0x7f090011;
+        public static final int gaoyaValue=0x7f09000d;
         public static final int iv_left_down=0x7f090006;
         public static final int iv_left_top=0x7f090000;
         public static final int iv_right_down=0x7f090009;
         public static final int iv_right_top=0x7f090003;
-        public static final int seek_diya=0x7f09000e;
-        public static final int seek_gaoya=0x7f09000d;
-        public static final int seek_wendu=0x7f09000f;
+        public static final int seek_diya=0x7f090010;
+        public static final int seek_gaoya=0x7f09000e;
+        public static final int seek_wendu=0x7f090012;
         public static final int tv_left_down_qiya=0x7f090007;
         public static final int tv_left_down_wendu=0x7f090008;
         public static final int tv_left_top_qiya=0x7f090001;
