@@ -15,8 +15,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="高压报警值设置"
-            android:textSize="15dip"
+            android:text="高压报警值"
+            android:textSize="20dip"
             android:layout_marginRight="5dip" />
 
         <LinearLayout
@@ -30,11 +30,11 @@
                 android:layout_marginBottom="5dip">
                 <TextView android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="2.5"
+                    android:text="2.5 Bar"
                     android:layout_alignParentLeft="true"/>
                 <TextView android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="3.5"
+                    android:text="3.5 Bar"
                     android:layout_alignParentRight="true"/>
                 <TextView android:id="@+id/gaoyaValue"
                     android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                     android:background="@drawable/bg_red"/>
                 <TextView android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="默认：3.0Bar (300KPa)"
+                    android:text=" 默认：3.0 Bar (300KPa)"
                     android:layout_toRightOf="@+id/gaoyaValue"/>
             </RelativeLayout>
 
@@ -74,8 +74,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="低压报警值设置"
-            android:textSize="15dip"
+            android:text="低压报警值"
+            android:textSize="20dip"
             android:layout_marginRight="5dip" />
 
         <LinearLayout
@@ -89,7 +89,7 @@
                 android:layout_marginBottom="5dip">
                 <TextView android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="1.5"
+                    android:text="1.5 Bar"
                     android:layout_alignParentLeft="true"/>
                 <TextView android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
@@ -98,14 +98,14 @@
                 <TextView android:id="@+id/diyaValue"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="3.5"
+                    android:text="3.5 Bar"
                     android:textSize="35sp"
                     android:gravity="center"
                     android:layout_centerInParent="true"
                     android:background="@drawable/bg_red"/>
                 <TextView android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="默认：1.8Bar (180KPa)"
+                    android:text=" 默认：1.8 Bar (180KPa)"
                     android:layout_toRightOf="@+id/diyaValue"/>
             </RelativeLayout>
             
@@ -132,8 +132,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="高温报警值设置"
-            android:textSize="15dip"
+            android:text="高温报警值"
+            android:textSize="20dip"
             android:layout_marginRight="5dip" />
 
         <LinearLayout
@@ -147,7 +147,7 @@
                 android:layout_marginBottom="5dip">
                 <TextView android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="50"
+                    android:text="50 ℃"
                     android:layout_alignParentLeft="true"/>
                 <TextView android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
@@ -156,14 +156,14 @@
                 <TextView android:id="@+id/gaowenValue"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="75"
+                    android:text="75 ℃"
                     android:textSize="35sp"
                     android:gravity="center"
                     android:layout_centerInParent="true"
                     android:background="@drawable/bg_red"/>
                 <TextView android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="默认：75"
+                    android:text=" 默认：75"
                     android:layout_toRightOf="@+id/gaowenValue"/>
             </RelativeLayout>
             

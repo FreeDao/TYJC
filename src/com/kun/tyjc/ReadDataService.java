@@ -9,13 +9,14 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
@@ -92,6 +93,9 @@ public class ReadDataService extends Service
 		}
 	};
 	
+	public static String ACTION_SHOW = "com.kun.tyjc.showdialog";
+	public static String ACTION_DISS = "com.kun.tyjc.dissdialog";
+	
 	@Override
 	public IBinder onBind(Intent arg0) {
 		// TODO Auto-generated method stub
@@ -116,6 +120,10 @@ public class ReadDataService extends Service
 				}
 			}
 		};
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(ACTION_SHOW);
+		filter.addAction(ACTION_DISS);
+		registerReceiver(receiver, filter);
 		inflater = LayoutInflater.from(this);
 		dialogLayout = inflater.inflate(R.layout.errormsg, null);
 		dialogLayout.setClickable(true);
@@ -428,16 +436,24 @@ public class ReadDataService extends Service
 		if(errorString.length()!=0){
 //			Looper.prepare();
 			Message msg = new Message();
-			msg.what = 1;
-			mHandle.handleMessage(msg);
+//			msg.what = 1;
+//			mHandle.handleMessage(msg);
 //			Looper.loop();
+			Intent intent = new Intent();
+			intent.setAction(ACTION_SHOW);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			mContext.sendBroadcast(intent);
 		}else{
 //			Looper.prepare();
-			Message msg = new Message();
-			msg.what = 2;
-			mHandle.handleMessage(msg);
+//			Message msg = new Message();
+//			msg.what = 2;
+//			mHandle.handleMessage(msg);
 //			Looper.loop();
 //			dissDialog();
+			Intent intent = new Intent();
+			intent.setAction(ACTION_DISS);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			mContext.sendBroadcast(intent);
 		}
 	}
 	
@@ -484,5 +500,21 @@ public class ReadDataService extends Service
 //		 tv_warn.setText(errorString);
 		 return errorString;
 	}
+	
+	private BroadcastReceiver receiver = new BroadcastReceiver(){
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			// TODO Auto-generated method stub
+			String action = intent.getAction();
+			if(ACTION_SHOW.equals(action)){
+				tv_warn.setText(errorString);
+				showDialog();
+			}else if(ACTION_DISS.equals(action)){
+				dissDialog();
+			}
+		}
+		
+	};
 	
 }

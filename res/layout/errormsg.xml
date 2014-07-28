@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/warn_bg"
         android:gravity="center"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/holo_orange_light"
         android:textSize="40dip" />
 
 </LinearLayout>
