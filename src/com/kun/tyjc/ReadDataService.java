@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -15,7 +17,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
@@ -78,20 +79,8 @@ public class ReadDataService extends Service
 	public static final int WENDU = 75;
 	private boolean isShow = false;
 	private String errorString = "";
-	public Handler mHandle = new Handler(){
-		@Override
-		public void handleMessage(Message msg){
-			switch(msg.what){
-			case 1:
-				tv_warn.setText(errorString);
-				showDialog();
-				break;
-			case 2:
-				dissDialog();
-				break;
-			}
-		}
-	};
+	private Timer mTimer;
+	private TimerTask mTimerTask;
 	
 	public static String ACTION_SHOW = "com.kun.tyjc.showdialog";
 	public static String ACTION_DISS = "com.kun.tyjc.dissdialog";
@@ -106,20 +95,20 @@ public class ReadDataService extends Service
 	{
 		super.onCreate();
 		mContext = this;
-		mHandle = new Handler(){
-			@Override
-			public void handleMessage(Message msg){
-				switch(msg.what){
-				case 1:
-					tv_warn.setText(errorString);
-					showDialog();
-					break;
-				case 2:
-					dissDialog();
-					break;
-				}
-			}
-		};
+//		mHandle = new Handler(){
+//			@Override
+//			public void handleMessage(Message msg){
+//				switch(msg.what){
+//				case 1:
+//					tv_warn.setText(errorString);
+//					showDialog();
+//					break;
+//				case 2:
+//					dissDialog();
+//					break;
+//				}
+//			}
+//		};
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(ACTION_SHOW);
 		filter.addAction(ACTION_DISS);
