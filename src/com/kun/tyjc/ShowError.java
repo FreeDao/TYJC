@@ -3,8 +3,10 @@ package com.kun.tyjc;
 import java.text.DecimalFormat;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -33,7 +35,7 @@ public class ShowError extends Activity {
 		sp = getSharedPreferences("tyjc", Context.MODE_PRIVATE);
 		editor = sp.edit();
 		initView();
-//		registerReceiver(receiver, new IntentFilter("com.kun.tyjc.action.info"));
+		registerReceiver(receiver, new IntentFilter(ReadDataService.ACTION_INFO));
 	}
 	
 	@Override
@@ -66,11 +68,17 @@ public class ShowError extends Activity {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		editor.putBoolean("show", false);
-		editor.commit();
-		Intent intent = new Intent();
-		intent.setClass(this, TYJC.class);
-		startActivity(intent);
+		if(item.getItemId() == R.id.action_gaojing){
+			editor.putBoolean("show", false);
+			editor.commit();
+			Intent intent = new Intent();
+			intent.setClass(this, TYJC.class);
+			startActivity(intent);
+		}else if(item.getItemId() == R.id.action_pipei){
+			Intent intent = new Intent();
+			intent.setClass(this, PipeiActivity.class);
+			startActivity(intent);
+		}
 //		int id = item.getItemId();
 //		if (id == R.id.action_settings) {
 //			return true;
@@ -208,20 +216,15 @@ public class ShowError extends Activity {
 //		tv_warn.setText(result);
 //	}
 //	
-//	private BroadcastReceiver receiver = new BroadcastReceiver(){
-//
-//		@Override
-//		public void onReceive(Context context, Intent intent) {
-//			// TODO Auto-generated method stub
-//			int fangxiangNumber = intent.getIntExtra("number", -1);
-//			String result = intent.getStringExtra("result");
-//			double qiya = intent.getDoubleExtra("qiya", 0);
-//			double wendu = intent.getDoubleExtra("wendu", 0);
-//			boolean isOk = intent.getBooleanExtra("isOk", false);
-//			setErrorImage(fangxiangNumber, result, isOk,qiya,wendu);
-//		}
-//		
-//	};
+	private BroadcastReceiver receiver = new BroadcastReceiver(){
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			// TODO Auto-generated method stub
+			error();
+		}
+		
+	};
 	
 	
 	

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <Button android:id="@+id/btn_left_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="左前轮"/>
+    <TextView android:id="@+id/tv_left_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""/>
+    </LinearLayout>
+    
+        <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <Button android:id="@+id/btn_right_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="右前轮"/>
+    <TextView android:id="@+id/tv_right_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""/>
+    </LinearLayout>
+    
+            <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <Button android:id="@+id/btn_left_buttom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="左后轮"/>
+    <TextView android:id="@+id/tv_left_buttom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""/>
+    </LinearLayout>
+    
+                <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <Button android:id="@+id/btn_right_buttom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="右后轮"/>
+    <TextView android:id="@+id/tv_right_buttom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -56,7 +56,7 @@
                 android:maxHeight="12dip"
   				android:minHeight="11dip"
                 android:progressDrawable="@drawable/seekbar_bg"
-                android:thumb="@drawable/seekbar_thum"
+                android:thumb="@drawable/thume"
                 android:paddingLeft="10dip"
                 android:paddingRight="10dip"
                 android:max="10"  />
@@ -116,7 +116,7 @@
                 android:maxHeight="12dip"
   				android:minHeight="11dip"
                 android:progressDrawable="@drawable/seekbar_bg"
-                android:thumb="@drawable/seekbar_thum"
+                android:thumb="@drawable/thume"
                 android:paddingLeft="10dip"
                 android:paddingRight="10dip"
                 android:max="10"  />
@@ -174,11 +174,24 @@
                 android:maxHeight="12dip"
   				android:minHeight="11dip"
                 android:progressDrawable="@drawable/seekbar_bg"
-                android:thumb="@drawable/seekbar_thum"
+                android:thumb="@drawable/thume"
                 android:paddingLeft="10dip"
                 android:paddingRight="10dip"
                 android:max="10"  />
         </LinearLayout>
     </LinearLayout>
-
+	<LinearLayout android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal"
+	    android:layout_marginTop="20dip">
+	    <ImageView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:src="@drawable/icon1"/>
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="深圳市飞影电子有限公司"/>
+	</LinearLayout>
+	<TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="版本 V1.0"/>
 </LinearLayout>

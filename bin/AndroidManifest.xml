@@ -24,6 +24,8 @@
         </activity>
         <activity android:name="com.kun.tyjc.TYJC"
             android:launchMode="singleTask"></activity>
+        <activity android:name="com.kun.tyjc.PipeiActivity"
+            android:launchMode="singleTask"></activity>
         <service android:name=".ReadDataService"></service>
         <receiver android:name=".BootBrocastReceiver">  
             <intent-filter>  

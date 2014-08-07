@@ -84,6 +84,7 @@ public class ReadDataService extends Service
 	
 	public static String ACTION_SHOW = "com.kun.tyjc.showdialog";
 	public static String ACTION_DISS = "com.kun.tyjc.dissdialog";
+	public static String ACTION_INFO = "com.kun.tyjc.info";
 	
 	@Override
 	public IBinder onBind(Intent arg0) {
@@ -142,6 +143,18 @@ public class ReadDataService extends Service
 		} catch (InvalidParameterException e) {
 //			DisplayError(R.string.error_configuration);
 		}
+		
+		mTimerTask = new TimerTask() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent();
+				intent.setAction(ACTION_DISS);
+				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				mContext.sendBroadcast(intent);
+			}
+		};
 	}
     
 	public void onStart(Intent intent,int startId) 
@@ -179,7 +192,8 @@ public class ReadDataService extends Service
 	
 	private void showDialog() {
 		if(isShow){
-			wm.updateViewLayout(dialogLayout, wmParams);
+//			wm.updateViewLayout(dialogLayout, wmParams);
+			return;
 		}else{
 //			initMenuWM();
 			dialogLayout = inflater.inflate(R.layout.errormsg, null);
@@ -393,14 +407,14 @@ public class ReadDataService extends Service
 		}else{
 			result = "";
 		}
-		if(fangxiangNumber==3&&!isOk&&n==4&&sp.getBoolean("show", false)){
-			Intent intent = new Intent();
-			intent.setClass(mContext, ShowError.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			startActivity(intent);
-			isOk = true;
-			n=0;
-		}
+//		if(fangxiangNumber==3&&!isOk&&n==4&&sp.getBoolean("show", false)){
+//			Intent intent = new Intent();
+//			intent.setClass(mContext, ShowError.class);
+//			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//			startActivity(intent);
+//			isOk = true;
+//			n=0;
+//		}
 //		Intent intent = new Intent();
 //		System.out.println("xxxxxxxxxxxxxxxxxxxxaa  "+fangxiangNumber);
 //		intent.putExtra("number", fangxiangNumber);
@@ -444,6 +458,10 @@ public class ReadDataService extends Service
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			mContext.sendBroadcast(intent);
 		}
+		Intent intent = new Intent();
+		intent.setAction(ACTION_INFO);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		mContext.sendBroadcast(intent);
 	}
 	
 	private String getErrorString(){
@@ -499,6 +517,19 @@ public class ReadDataService extends Service
 			if(ACTION_SHOW.equals(action)){
 				tv_warn.setText(errorString);
 				showDialog();
+//				mTimer = new Timer();
+//				mTimerTask = new TimerTask() {
+//					
+//					@Override
+//					public void run() {
+//						// TODO Auto-generated method stub
+//						Intent intent = new Intent();
+//						intent.setAction(ACTION_DISS);
+//						intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//						mContext.sendBroadcast(intent);
+//					}
+//				};
+//				mTimer.schedule(mTimerTask, 10000);
 			}else if(ACTION_DISS.equals(action)){
 				dissDialog();
 			}
