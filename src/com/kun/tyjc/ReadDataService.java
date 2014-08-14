@@ -96,20 +96,6 @@ public class ReadDataService extends Service
 	{
 		super.onCreate();
 		mContext = this;
-//		mHandle = new Handler(){
-//			@Override
-//			public void handleMessage(Message msg){
-//				switch(msg.what){
-//				case 1:
-//					tv_warn.setText(errorString);
-//					showDialog();
-//					break;
-//				case 2:
-//					dissDialog();
-//					break;
-//				}
-//			}
-//		};
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(ACTION_SHOW);
 		filter.addAction(ACTION_DISS);
@@ -239,7 +225,10 @@ public class ReadDataService extends Service
 					byData = readData();
 					if(byData == null)
 						continue;
-//					onDataReceived(byData, byData.length);
+					//Ð£×¼Ó¦´ð
+					if(byData[2]==0x06){
+						sendPiPei(byData);
+					}
 					showError(byData);
 //					Log.d("serial"," ServiceThread readData read data = " +getString(byData));
 				}
@@ -258,15 +247,6 @@ public class ReadDataService extends Service
 			super.run();
 			while(!isInterrupted()) {
 				int size;
-				////////////////////////////////////////////////////////////
-				//
-//				if(mSerialPort == null) return;
-//				byte[] buffer = mSerialPort.jniRead(0, 256, 0);
-//				size = buffer.length;
-//				if (size > 0) {
-//					onDataReceived(buffer, size);
-//				}
-				////////////////////////////////////////////////////////////
 				try {
 					byte[] buffer = new byte[64];
 					if (mInputStream == null) return;
@@ -333,12 +313,6 @@ public class ReadDataService extends Service
 						Log.d("serial"," ServiceThread readData read data = " +getString(byData));
 						return byData;
 					}
-//					else //checkSum error
-//					{
-//						Log.e("serial" ," readData EEEEEE " + mbyReadBuffer);
-//						mbyReadBuffer.remove(0);
-//						return null;
-//					}
 				}
 			}
 		}
@@ -407,52 +381,13 @@ public class ReadDataService extends Service
 		}else{
 			result = "";
 		}
-//		if(fangxiangNumber==3&&!isOk&&n==4&&sp.getBoolean("show", false)){
-//			Intent intent = new Intent();
-//			intent.setClass(mContext, ShowError.class);
-//			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//			startActivity(intent);
-//			isOk = true;
-//			n=0;
-//		}
-//		Intent intent = new Intent();
-//		System.out.println("xxxxxxxxxxxxxxxxxxxxaa  "+fangxiangNumber);
-//		intent.putExtra("number", fangxiangNumber);
-//		intent.putExtra("result", result);
-//		intent.putExtra("qiya", qiyaValue);
-//		intent.putExtra("wendu", wenduValue);
-//		intent.putExtra("isOk", isOk);
-//		if(!isOk){
-//			intent.setClass(mContext, ShowError.class);
-//			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//			startActivity(intent);
-//		}
-//			Intent intent1 = new Intent();
-//			intent1.putExtra("number", fangxiangNumber);
-//			intent1.putExtra("result", result);
-//			intent1.putExtra("qiya", qiyaValue);
-//			intent1.putExtra("wendu", wenduValue);
-//			intent1.putExtra("isOk", isOk);
-//			intent1.setAction("com.kun.tyjc.action.info");
-//			sendBroadcast(intent1);
 		errorString = getErrorString();
 		if(errorString.length()!=0){
-//			Looper.prepare();
-			Message msg = new Message();
-//			msg.what = 1;
-//			mHandle.handleMessage(msg);
-//			Looper.loop();
 			Intent intent = new Intent();
 			intent.setAction(ACTION_SHOW);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			mContext.sendBroadcast(intent);
 		}else{
-//			Looper.prepare();
-//			Message msg = new Message();
-//			msg.what = 2;
-//			mHandle.handleMessage(msg);
-//			Looper.loop();
-//			dissDialog();
 			Intent intent = new Intent();
 			intent.setAction(ACTION_DISS);
 			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -517,24 +452,25 @@ public class ReadDataService extends Service
 			if(ACTION_SHOW.equals(action)){
 				tv_warn.setText(errorString);
 				showDialog();
-//				mTimer = new Timer();
-//				mTimerTask = new TimerTask() {
-//					
-//					@Override
-//					public void run() {
-//						// TODO Auto-generated method stub
-//						Intent intent = new Intent();
-//						intent.setAction(ACTION_DISS);
-//						intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//						mContext.sendBroadcast(intent);
-//					}
-//				};
-//				mTimer.schedule(mTimerTask, 10000);
 			}else if(ACTION_DISS.equals(action)){
 				dissDialog();
 			}
 		}
 		
 	};
+	
+	private void sendPiPei(byte[] data){
+		Intent intent = new Intent("com.kun.tyjc.pipei");
+		if(data[4]==0x00){
+			intent.putExtra("index", 0);
+		}else if(data[4]==0x01){
+			intent.putExtra("index", 1);
+		}else if(data[4]==0x10){
+			intent.putExtra("index", 2);
+		}else if(data[4]==0x11){
+			intent.putExtra("index", 3);
+		}
+		mContext.sendBroadcast(intent);
+	}
 	
 }

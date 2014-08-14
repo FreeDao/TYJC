@@ -2,57 +2,99 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical" >
-    <LinearLayout android:layout_width="match_parent"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-    <Button android:id="@+id/btn_left_top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="左前轮"/>
-    <TextView android:id="@+id/tv_left_top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""/>
+        android:orientation="horizontal" 
+        android:layout_marginLeft="20dip">
+
+        <Button
+            android:id="@+id/btn_left_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_bg"
+            android:textColor="@android:color/white"
+            android:text="左前轮" />
+
+        <TextView
+            android:id="@+id/tv_left_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+        	android:layout_marginLeft="20dip"
+        	android:textSize="30dip"
+            android:text="" />
     </LinearLayout>
-    
-        <LinearLayout android:layout_width="match_parent"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-    <Button android:id="@+id/btn_right_top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="右前轮"/>
-    <TextView android:id="@+id/tv_right_top"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""/>
+        android:layout_marginTop="20dip"
+        android:orientation="horizontal" 
+        android:layout_marginLeft="20dip">
+
+        <Button
+            android:id="@+id/btn_right_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_bg"
+            android:textColor="@android:color/white"
+            android:text="右前轮" />
+
+        <TextView
+            android:id="@+id/tv_right_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30dip"
+            android:text="" />
     </LinearLayout>
-    
-            <LinearLayout android:layout_width="match_parent"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-    <Button android:id="@+id/btn_left_buttom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="左后轮"/>
-    <TextView android:id="@+id/tv_left_buttom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""/>
+        android:layout_marginTop="20dip"
+        android:orientation="horizontal" 
+        android:layout_marginLeft="20dip">
+
+        <Button
+            android:id="@+id/btn_left_buttom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_bg"
+            android:textColor="@android:color/white"
+            android:text="左后轮" />
+
+        <TextView
+            android:id="@+id/tv_left_buttom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30dip"
+            android:text="" />
     </LinearLayout>
-    
-                <LinearLayout android:layout_width="match_parent"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-    <Button android:id="@+id/btn_right_buttom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="右后轮"/>
-    <TextView android:id="@+id/tv_right_buttom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""/>
+        android:layout_marginTop="20dip"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dip" >
+
+        <Button
+            android:id="@+id/btn_right_buttom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_bg"
+            android:textColor="@android:color/white"
+            android:text="右后轮" />
+
+        <TextView
+            android:id="@+id/tv_right_buttom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30dip"
+            android:text="" />
     </LinearLayout>
 
 </LinearLayout>

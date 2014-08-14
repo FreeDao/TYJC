@@ -6,7 +6,14 @@ import java.io.OutputStream;
 import java.security.InvalidParameterException;
 
 
+
+
+
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -51,7 +58,7 @@ public class PipeiActivity extends Activity implements OnClickListener{
 		} catch (InvalidParameterException e) {
 //			DisplayError(R.string.error_configuration);
 		}
-		
+		registerReceiver(receiver, new IntentFilter("com.kun.tyjc.pipei"));
 	}
 
 	@Override
@@ -66,25 +73,65 @@ public class PipeiActivity extends Activity implements OnClickListener{
 		switch(v.getId()){
 		case R.id.btn_left_top:
 			try {
-				mOutputStream.write(new String("send").getBytes());
-				mOutputStream.write('\n');
+				byte[] temp = Command.getByteFromInt(new int[]{0x55, 0xAA, 0x06, 0x01, 0x00, 0xF8}, 6);
+				mOutputStream.write(temp);
+				tv_left_top.setText("正在匹配");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			tv_left_top.setText("正在匹配");
 			break;
 		case R.id.btn_right_top:
-			tv_right_top.setText("正在匹配");
+			try {
+				byte[] temp = Command.getByteFromInt(new int[]{0x55, 0xAA, 0x06, 0x01, 0x01, 0xF8}, 6);
+				mOutputStream.write(temp);
+				tv_right_top.setText("正在匹配");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
 		case R.id.btn_left_buttom:
-			tv_left_buttom.setText("正在匹配");
+			try {
+				byte[] temp = Command.getByteFromInt(new int[]{0x55, 0xAA, 0x06, 0x01, 0x10, 0xF8}, 6);
+				mOutputStream.write(temp);
+				tv_left_buttom.setText("正在匹配");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
 		case R.id.btn_right_buttom:
-			tv_right_buttom.setText("正在匹配");
+			try {
+				byte[] temp = Command.getByteFromInt(new int[]{0x55, 0xAA, 0x06, 0x01, 0x11, 0xF8}, 6);
+				mOutputStream.write(temp);
+				tv_right_buttom.setText("正在匹配");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
 			
 		}
 	}
+	
+	private BroadcastReceiver receiver = new BroadcastReceiver(){
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			// TODO Auto-generated method stub
+			int data = intent.getIntExtra("index", -1);
+			if(data==0x00){
+				tv_left_top.setText("匹配成功！");
+			}else if(data==0x01){
+				tv_right_top.setText("匹配成功！");
+			}else if(data==0x10){
+				tv_left_buttom.setText("匹配成功！");
+			}else if(data==0x11){
+				tv_right_buttom.setText("匹配成功！");
+			}
+		}
+		
+	};
 
 }
